@@ -81,6 +81,34 @@ make generate
 - `scripts/fix-nullable-types.sh` writes `api/openapi.fixed.yaml`. The spec declares OpenAPI 3.0.1 but uses the 3.1 type list form for nullable fields (`type: [number, 'null']`), which oapi-codegen rejects. The script rewrites each one to `type: number` plus `nullable: true`.
 - oapi-codegen runs with `config.yaml`. The config maps `number` to `float64`, because the spec gives prices and amounts no format and oapi-codegen would otherwise use `float32`.
 
+## Agent integrations
+
+The [skill](.agents/skills/go-trading212) teaches a coding agent how to use go-trading212 when it writes Go. It works in any agent that reads `.agents/skills/`, and installs natively in the clients below.
+
+### Claude Code
+
+```bash
+claude plugin marketplace add psyb0t/agents
+claude plugin install go-trading212@psyb0t
+```
+
+### Codex
+
+```bash
+codex plugin marketplace add psyb0t/agents
+codex plugin add go-trading212@psyb0t
+```
+
+Codex also picks the skill up with no install in any checkout of this repo.
+
+### OpenClaw
+
+The skill is published to ClawHub on every release:
+
+```bash
+openclaw skills install @psyb0t/go-trading212
+```
+
 ## Development
 
 Every command runs in the `Dockerfile.dev` image. The host needs only Docker and Make.
