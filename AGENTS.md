@@ -40,6 +40,7 @@ make sec       # gitleaks, govulncheck, semgrep
 - Without the `number` to `float64` mapping in `config.yaml`, prices and amounts become `float32`.
 - Method names are the spec's operation IDs: `GetAll`, `Create`, `Update`, `Delete` are pies, `Orders1` is order history, `PlaceStopOrder1` is a stop order and `PlaceStopOrder` a stop-limit order. A spec change that renames an operation ID renames the method.
 - `make generate` always downloads the current spec, so it can change the client even when nothing here changed. Review the generated diff before committing it.
+- `.github/workflows/regen.yml` regenerates the client every day and releases the result. When the checks fail, Claude edits the repository to fix them, but a fix may not touch the paths listed under `fix_protected_paths` in that workflow: the workflows, the Makefile, `AGENTS.md`, `.agents/rules/`, the lint, security and spec download scripts and their configs. A problem that needs a change there fails the run and needs a manual fix.
 
 ## Rules
 

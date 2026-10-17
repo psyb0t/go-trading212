@@ -81,6 +81,8 @@ make generate
 - `scripts/fix-nullable-types.sh` writes `api/openapi.fixed.yaml`. The spec declares OpenAPI 3.0.1 but uses the 3.1 type list form for nullable fields (`type: [number, 'null']`), which oapi-codegen rejects. The script rewrites each one to `type: number` plus `nullable: true`.
 - oapi-codegen runs with `config.yaml`. The config maps `number` to `float64`, because the spec gives prices and amounts no format and oapi-codegen would otherwise use `float32`.
 
+`.github/workflows/regen.yml` does the same every day in CI. When the new spec changes the client, it runs `make lint`, `make test` and `make sec`. If a check fails, Claude edits the code and the checks run again, up to three times, and a review step reads the result. A passing change is committed with a CHANGELOG entry and tagged as the next release: a patch version for fixes and additions, a minor version for breaking changes.
+
 ## Agent integrations
 
 The [skill](.agents/skills/go-trading212) teaches a coding agent how to use go-trading212 when it writes Go. It works in any agent that reads `.agents/skills/`, and installs natively in the clients below.
