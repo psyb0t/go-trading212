@@ -54,7 +54,7 @@ HTTP Basic auth in a request editor: `req.SetBasicAuth(key, secret)`. The spec a
 | `GetDetailedWithResponse`, `UpdateWithResponse`, `DeleteWithResponse` | `GET`, `POST`, `DELETE /api/v0/equity/pies/{id}` |
 | `DuplicatePieWithResponse` | `POST /api/v0/equity/pies/{id}/duplicate` |
 
-Request bodies: `MarketRequest`, `LimitRequest`, `StopRequest`, `StopLimitRequest`, `PieRequest`, `PublicReportRequest`.
+Request bodies: `MarketRequest`, `LimitRequest`, `StopRequest`, `StopLimitRequest`, `PieRequest`, `DuplicateBucketRequest`, `PublicReportRequest`.
 
 ## Responses
 

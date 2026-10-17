@@ -1,7 +1,8 @@
 ---
 name: go-trading212
-description: Unofficial Go client for the Trading 212 Public API, generated with oapi-codegen from the OpenAPI document Trading 212 publishes. Package `trading212` (`github.com/psyb0t/go-trading212`) has a typed `...WithResponse` method for every endpoint: account summary, positions, open orders, limit, market, stop and stop-limit orders, order, dividend and transaction history, CSV report exports, exchange and instrument metadata, and pies. Prices and amounts are `float64`. Use when Go code needs to read a Trading 212 account or place Trading 212 orders, or already imports go-trading212.
+description: "Unofficial Go client for the Trading 212 Public API, generated with oapi-codegen from the OpenAPI document Trading 212 publishes. Package `trading212` (`github.com/psyb0t/go-trading212`) has a typed `...WithResponse` method for every endpoint: account summary, positions, open orders, limit, market, stop and stop-limit orders, order, dividend and transaction history, CSV report exports, exchange and instrument metadata, and pies. Prices and amounts are `float64`. Use when Go code needs to read a Trading 212 account or place Trading 212 orders, or already imports go-trading212."
 homepage: https://github.com/psyb0t/go-trading212
+license: MIT
 user-invocable: true
 metadata:
   openclaw:
@@ -9,9 +10,6 @@ metadata:
     requires:
       bins:
         - go
-      env:
-        - TRADING212_API_KEY
-        - TRADING212_API_SECRET
 permissions:
   filesystem: "Guides edits to the Go source of the current project. The library reads and writes no files."
   shell: "The Go toolchain (`go get`, `go build`, `go test`) to add and compile the dependency."
@@ -41,6 +39,20 @@ For install, the full operation list, pagination and response fields, see [refer
 - The code is not Go. This module ships only a Go package.
 - You need a client maintained by Trading 212. This one is unofficial and not affiliated with Trading 212.
 - You want to change the generated client itself. See `AGENTS.md` in the repo.
+
+## Finding endpoints and types
+
+The examples below cover a few calls. Every operation in the spec has a generated method, and the spec's descriptions are on them as Go doc comments. Look names and fields up instead of guessing. After `go get github.com/psyb0t/go-trading212`, from inside your module:
+
+```bash
+go doc github.com/psyb0t/go-trading212 ClientWithResponsesInterface  # every endpoint method
+go doc github.com/psyb0t/go-trading212 GetPositionsParams            # one method, params type or model
+go doc -all github.com/psyb0t/go-trading212                          # the whole package
+```
+
+The same documentation is at https://pkg.go.dev/github.com/psyb0t/go-trading212.
+
+Method names come from the spec's operation IDs. `<OperationId>WithResponse` takes the context, then the path parameters in order, then `*<OperationId>Params` when the operation has query or header parameters, then the request body when it has one. The `JSON200` field (or `JSON201` and so on, per declared status) holds the decoded body; it is nil for any other status. Some operation IDs are generic or numbered; the note at the end of this file maps them.
 
 ## Usage
 
@@ -82,7 +94,9 @@ if summary.JSON200 == nil {
 	return fmt.Errorf("account summary: %s", summary.Status())
 }
 
-total := summary.JSON200.TotalValue // *float64
+if total := summary.JSON200.TotalValue; total != nil { // *float64
+	fmt.Println("account value:", *total)
+}
 
 positions, err := client.GetPositionsWithResponse(
 	ctx,

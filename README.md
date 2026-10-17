@@ -56,6 +56,8 @@ The same code is in `example_test.go`, so `make test` checks that it compiles.
 
 Method names come from the spec's operation IDs, so some are generic (`GetAll`, `Create`, `Update` and `Delete` are the pie endpoints) and a few carry a number suffix (`Orders1` is the order history, `PlaceStopOrder1` is the stop order, `PlaceStopOrder` is the stop-limit order).
 
+The full API, with the spec's descriptions as doc comments, is in the [Go reference](https://pkg.go.dev/github.com/psyb0t/go-trading212) and in `go doc github.com/psyb0t/go-trading212` from inside your module.
+
 ## Auth
 
 Trading 212 authenticates with HTTP Basic auth: the API key is the username and the API secret is the password. Both come from the API section of the account settings in the Trading 212 app. The spec also lists a legacy scheme where the bare API key goes in the `Authorization` header; to use it, set `req.Header.Set("Authorization", key)` in the request editor instead.
