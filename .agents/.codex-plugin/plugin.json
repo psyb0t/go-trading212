@@ -1,6 +1,6 @@
 {
   "name": "go-trading212",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "description": "Unofficial Go client for the Trading 212 Public API: account, positions, orders, history, instruments and pies, generated from the spec Trading 212 publishes.",
   "author": { "name": "psyb0t", "url": "https://github.com/psyb0t" },
   "homepage": "https://github.com/psyb0t/go-trading212",
